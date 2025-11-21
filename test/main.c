@@ -29,5 +29,11 @@ main (void)
   test_mat4x3f_mul_vec3f ();
   test_mat4x4f_mul_vec4f ();
 
+  test_mat2x2f_mul_scalar ();
+  test_mat3x3f_mul_scalar ();
+  test_mat3x4f_mul_scalar ();
+  test_mat4x3f_mul_scalar ();
+  test_mat4x4f_mul_scalar ();
+
   return 0;
 }

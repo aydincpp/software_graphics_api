@@ -88,11 +88,7 @@ test_mat2x2f_add (void)
   // clang-format on
 
   Mat2x2f_t result = mat2x2f_add (&a, &b);
-  if (!mat_eq (expected.m, result.m, size, eps, __func__))
-    {
-      return false;
-    }
-  return true;
+  return mat_eq (expected.m, result.m, size, eps, __func__);
 }
 
 bool
@@ -120,11 +116,7 @@ test_mat3x3f_add (void)
   // clang-format on
 
   Mat3x3f_t result = mat3x3f_add (&a, &b);
-  if (!mat_eq (expected.m, result.m, size, eps, __func__))
-    {
-      return false;
-    }
-  return true;
+  return mat_eq (expected.m, result.m, size, eps, __func__);
 }
 
 bool
@@ -152,11 +144,7 @@ test_mat3x4f_add (void)
   // clang-format on
 
   Mat3x4f_t result = mat3x4f_add (&a, &b);
-  if (!mat_eq (expected.m, result.m, size, eps, __func__))
-    {
-      return false;
-    }
-  return true;
+  return mat_eq (expected.m, result.m, size, eps, __func__);
 }
 
 bool
@@ -187,11 +175,7 @@ test_mat4x3f_add (void)
   // clang-format on
 
   Mat4x3f_t result = mat4x3f_add (&a, &b);
-  if (!mat_eq (expected.m, result.m, size, eps, __func__))
-    {
-      return false;
-    }
-  return true;
+  return mat_eq (expected.m, result.m, size, eps, __func__);
 }
 
 bool
@@ -222,11 +206,7 @@ test_mat4x4f_add (void)
   // clang-format on
 
   Mat4x4f_t result = mat4x4f_add (&a, &b);
-  if (!mat_eq (expected.m, result.m, size, eps, __func__))
-    {
-      return false;
-    }
-  return true;
+  return mat_eq (expected.m, result.m, size, eps, __func__);
 }
 
 bool
@@ -251,11 +231,7 @@ test_mat2x2f_sub (void)
   // clang-format on
 
   Mat2x2f_t result = mat2x2f_sub (&a, &b);
-  if (!mat_eq (expected.m, result.m, size, eps, __func__))
-    {
-      return false;
-    }
-  return true;
+  return mat_eq (expected.m, result.m, size, eps, __func__);
 }
 
 bool
@@ -283,11 +259,7 @@ test_mat3x3f_sub (void)
   // clang-format on
 
   Mat3x3f_t result = mat3x3f_sub (&a, &b);
-  if (!mat_eq (expected.m, result.m, size, eps, __func__))
-    {
-      return false;
-    }
-  return true;
+  return mat_eq (expected.m, result.m, size, eps, __func__);
 }
 
 bool
@@ -315,11 +287,7 @@ test_mat3x4f_sub (void)
   // clang-format on
 
   Mat3x4f_t result = mat3x4f_sub (&a, &b);
-  if (!mat_eq (expected.m, result.m, size, eps, __func__))
-    {
-      return false;
-    }
-  return true;
+  return mat_eq (expected.m, result.m, size, eps, __func__);
 }
 
 bool
@@ -350,11 +318,7 @@ test_mat4x3f_sub (void)
   // clang-format on
 
   Mat4x3f_t result = mat4x3f_sub (&a, &b);
-  if (!mat_eq (expected.m, result.m, size, eps, __func__))
-    {
-      return false;
-    }
-  return true;
+  return mat_eq (expected.m, result.m, size, eps, __func__);
 }
 
 bool
@@ -385,11 +349,7 @@ test_mat4x4f_sub (void)
   // clang-format on
 
   Mat4x4f_t result = mat4x4f_sub (&a, &b);
-  if (!mat_eq (expected.m, result.m, size, eps, __func__))
-    {
-      return false;
-    }
-  return true;
+  return mat_eq (expected.m, result.m, size, eps, __func__);
 }
 
 bool
@@ -410,17 +370,13 @@ test_mat2x2f_mul (void)
   }};
 
   Mat2x2f_t expected = { .m = {
-    -6.5,   13,
-    -1.375, 10.375
+    -6.5f,   13.0f,
+    -1.375f, 10.375f
   }};
   // clang-format on
 
   Mat2x2f_t result = mat2x2f_mul (&a, &b);
-  if (!mat_eq (expected.m, result.m, size, eps, __func__))
-    {
-      return false;
-    }
-  return true;
+  return mat_eq (expected.m, result.m, size, eps, __func__);
 }
 
 bool
@@ -430,31 +386,27 @@ test_mat3x3f_mul (void)
   int size = 9;
 
   // clang-format off
-  Mat3x3f_t a = { .m = {
+  Mat3x3f_t a =         { .m = {
      1.20f, -2.50f,  3.10f,
      0.75f,  4.40f, -1.30f,
     -3.30f,  2.20f,  0.90f
   }};
 
-  Mat3x3f_t b = { .m = {
+  Mat3x3f_t b =         { .m = {
      2.00f, -1.10f,  0.50f,
     -3.20f,  4.40f, -2.20f,
      1.50f,  0.25f,  3.75f
   }};
 
-  Mat3x3f_t expected = { .m = {
-     15.05, -11.545,  17.725,
-    -14.53,  18.21,  -14.18,
-    -12.29,  13.535, -3.115,
+  Mat3x3f_t expected =  { .m = {
+     15.05f, -11.545f,  17.725f,
+    -14.53f,  18.21f,  -14.18f,
+    -12.29f,  13.535f, -3.115f,
   }};
   // clang-format on
 
   Mat3x3f_t result = mat3x3f_mul (&a, &b);
-  if (!mat_eq (expected.m, result.m, size, eps, __func__))
-    {
-      return false;
-    }
-  return true;
+  return mat_eq (expected.m, result.m, size, eps, __func__);
 }
 
 bool
@@ -464,34 +416,30 @@ test_mat4x4f_mul (void)
   int size = 16;
 
   // clang-format off
-  Mat4x4f_t a = { .m = {
+  Mat4x4f_t a =         { .m = {
      1.00f,  2.00f,  3.00f,  4.00f,
     -1.50f,  0.75f,  2.20f, -3.30f,
      5.10f, -2.40f,  0.90f,  1.70f,
      0.25f,  3.30f, -4.40f,  2.00f
   }};
 
-  Mat4x4f_t b = { .m = {
+  Mat4x4f_t b =         { .m = {
      2.20f, -1.00f,  0.50f,  4.00f,
     -3.00f,  3.10f, -2.20f, -1.50f,
      1.50f,  2.00f,  1.10f,  0.75f,
     -2.20f,  0.40f, -3.30f,  1.25f
   }};
 
-  Mat4x4f_t expected = { .m = {
-    -8.1,    12.8,  -13.8,    8.25,
-     5.01,   6.905,  10.91,  -9.6,
-     16.03, -10.06,  3.21,    26.8,
-    -20.35,  1.98,  -18.575, -4.75
+  Mat4x4f_t expected =  { .m = {
+    -8.1f,    12.8f,  -13.8f,    8.25f,
+     5.01f,   6.905f,  10.91f,  -9.6f,
+     16.03f, -10.06f,  3.21f,    26.8f,
+    -20.35f,  1.98f,  -18.575f, -4.75f
   }};
   // clang-format on
 
   Mat4x4f_t result = mat4x4f_mul (&a, &b);
-  if (!mat_eq (expected.m, result.m, size, eps, __func__))
-    {
-      return false;
-    }
-  return true;
+  return mat_eq (expected.m, result.m, size, eps, __func__);
 }
 
 bool
@@ -501,31 +449,27 @@ test_mat3x3f_mul_mat3x4f (void)
   int size = 12;
 
   // clang-format off
-  Mat3x3f_t a = { .m = {
-    3.1, 2.5, 5.4,
-    6.2, 1.2, 4.0,
-    2.0, 5.0, 0.0
+  Mat3x3f_t a =         { .m = {
+    3.1f, 2.5f, 5.4f,
+    6.2f, 1.2f, 4.0f,
+    2.0f, 5.0f, 0.0f
   }};
 
-  Mat3x4f_t b = { .m = {
-     1.1,  3.3, -2.0,  4.4,
-    -0.5,  2.2,  0.0, -1.1,
-     7.7, -3.3,  1.5,  0.0,
+  Mat3x4f_t b =         { .m = {
+     1.1f,  3.3f, -2.0f,  4.4f,
+    -0.5f,  2.2f,  0.0f, -1.1f,
+     7.7f, -3.3f,  1.5f,  0.0f,
   }};
 
-  Mat3x4f_t expected = { .m = {
-     43.74, -2.09,  1.9, 10.89,
-     37.02,  9.9,  -6.4, 25.96,
-    -0.3,    17.6, -4,   3.3,
+  Mat3x4f_t expected =  { .m = {
+     43.74f, -2.09f,  1.9f, 10.89f,
+     37.02f,  9.9f,  -6.4f, 25.96f,
+    -0.3f,    17.6f, -4.0f,   3.3f,
   }};
   // clang-format on
 
   Mat3x4f_t result = mat3x3f_mul_mat3x4f (&a, &b);
-  if (!mat_eq (expected.m, result.m, size, eps, __func__))
-    {
-      return false;
-    }
-  return true;
+  return mat_eq (expected.m, result.m, size, eps, __func__);
 }
 
 bool
@@ -535,32 +479,28 @@ test_mat3x4f_mul_mat4x4f (void)
   int size = 12;
 
   // clang-format off
-  Mat3x4f_t a = { .m = {
-     43.74,  -2.09,  1.9, 10.89,
-     37.02,   9.9,  -6.4, 25.96,
-    -0.3,     17.6, -4.0, 3.3
+  Mat3x4f_t a =         { .m = {
+     43.74f,  -2.09f,  1.9f, 10.89f,
+     37.02f,   9.9f,  -6.4f, 25.96f,
+    -0.3f,     17.6f, -4.0f, 3.3f
   }};
 
-  Mat4x4f_t b = { .m = {
-    -8.1,    12.8,  -13.8,    8.25,
-     5.01,   6.905,  10.91,  -9.6,
-     16.03, -10.06,  3.21,    26.8,
-    -20.35,  1.98,  -18.575, -4.75
+  Mat4x4f_t b =         { .m = {
+    -8.1f,    12.8f,  -13.8f,    8.25f,
+     5.01f,   6.905f,  10.91f,  -9.6f,
+     16.03f, -10.06f,  3.21f,    26.8f,
+    -20.35f,  1.98f,  -18.575f, -4.75f
   }};
 
-  Mat3x4f_t expected = { .m = {
-    -555.9194, 547.88875, -822.59665,  380.1115,
-    -881.141,  658.0003,  -905.618,   -84.455,
-    -40.669,   164.462,    122.0185,  -294.31
+  Mat3x4f_t expected =  { .m = {
+    -555.9194f, 547.88875f, -822.59665f,  380.1115f,
+    -881.141f,  658.0003f,  -905.618f,   -84.455f,
+    -40.669f,   164.462f,    122.0185f,  -294.31f
   }};
   // clang-format on
 
   Mat3x4f_t result = mat3x4f_mul_mat4x4f (&a, &b);
-  if (!mat_eq (expected.m, result.m, size, eps, __func__))
-    {
-      return false;
-    }
-  return true;
+  return mat_eq (expected.m, result.m, size, eps, __func__);
 }
 
 bool
@@ -570,33 +510,29 @@ test_mat4x3f_mul_mat3x4f (void)
   int size = 16;
 
   // clang-format off
-  Mat4x3f_t a = { .m = {
-     10.5, 3.5,  4.2,
-    -0.3,  1.2,  8.8,
-     5.5,  4.1, -6.6,
-    -2.2, -1.1,  1.1
+  Mat4x3f_t a =         { .m = {
+     10.5f, 3.5f,  4.2f,
+    -0.3f,  1.2f,  8.8f,
+     5.5f,  4.1f, -6.6f,
+    -2.2f, -1.1f,  1.1f
   }};
 
-  Mat3x4f_t b = { .m = {
+  Mat3x4f_t b =         { .m = {
      4.4, 5.1,  5.9,   4.1,
      4.5, 4.2,  1.1,   5.5,
     -6,  -9.3, -4.85, -6.34
   }};
 
-  Mat4x4f_t expected = { .m = {
-     36.75,  29.19,  45.43,   35.672,
-    -48.72, -78.33, -43.13,  -50.422,
-     82.25,  106.65, 68.97,   86.944,
-    -21.23, -26.07, -19.525, -22.044
+  Mat4x4f_t expected =  { .m = {
+     36.75f,  29.19f,  45.43f,   35.672f,
+    -48.72f, -78.33f, -43.13f,  -50.422f,
+     82.25f,  106.65f, 68.97f,   86.944f,
+    -21.23f, -26.07f, -19.525f, -22.044f
   }};
   // clang-format on
 
   Mat4x4f_t result = mat4x3f_mul_mat3x4f (&a, &b);
-  if (!mat_eq (expected.m, result.m, size, eps, __func__))
-    {
-      return false;
-    }
-  return true;
+  return mat_eq (expected.m, result.m, size, eps, __func__);
 }
 
 bool
@@ -606,33 +542,29 @@ test_mat4x4f_mul_mat4x3f (void)
   int size = 12;
 
   // clang-format off
-  Mat4x4f_t a = { .m = {
-     1.5,   5.5,  4.2,  2.52,
-     5.54,  3.7,  6.66, 1.5,
-    -6.56, -4.54, 8.2,  5.9,
-     3.5,   4.6,  14.6, 15.7
+  Mat4x4f_t a =         { .m = {
+     1.5f,   5.5f,  4.2f,  2.52f,
+     5.54f,  3.7f,  6.66f, 1.5f,
+    -6.56f, -4.54f, 8.2f,  5.9f,
+     3.5f,   4.6f,  14.6f, 15.7f
   }};
 
-  Mat4x3f_t b = { .m = {
-    1.5,    5.41,  85.54,
-    6.23,  -35.56, 14.5,
-    45.32, -17.5,  85.6,
-    12.2,   18.0,  5.0
+  Mat4x3f_t b =         { .m = {
+    1.5f,    5.41f,  85.54f,
+    6.23f,  -35.56f, 14.5f,
+    45.32f, -17.5f,  85.6f,
+    12.2f,   18.0f,  5.0f
   }};
 
-  Mat4x3f_t expected = { .m = {
-     257.603, -215.605,    580.18,   351.4922,
-    -191.1506, 1105.1376,  405.4798, 88.6528,
-     104.4476, 887.12,    -117.541,  1694.35
+  Mat4x3f_t expected =  { .m = {
+     257.603f, -215.605f,    580.18f,   351.4922f,
+    -191.1506f, 1105.1376f,  405.4798f, 88.6528f,
+     104.4476f, 887.12f,    -117.541f,  1694.35f
   }};
   // clang-format on
 
   Mat4x3f_t result = mat4x4f_mul_mat4x3f (&a, &b);
-  if (!mat_eq (expected.m, result.m, size, eps, __func__))
-    {
-      return false;
-    }
-  return true;
+  return mat_eq (expected.m, result.m, size, eps, __func__);
 }
 
 bool
@@ -640,16 +572,14 @@ test_mat2x2f_mul_vec2f (void)
 {
   const float eps = 1e-5f;
 
-  Mat2x2f_t m = { .m = { 2.0f, 3.0f, 1.0f, 4.0f } };
-  Vec2f_t v = { 5.0f, 6.0f };
-  Vec2f_t expected = { 28.0f, 29.0f };
-  Vec2f_t result = mat2x2f_mul_vec2f (&m, &v);
+  // clang-format off
+  Mat2x2f_t m =       { .m = { 2.0f, 3.0f, 1.0f, 4.0f } };
+  Vec2f_t v =         { 5.0f, 6.0f };
+  Vec2f_t expected =  { 28.0f, 29.0f };
+  // clang-format on
 
-  if (!vec2f_eq (&expected, &result, eps, __func__))
-    {
-      return false;
-    }
-  return true;
+  Vec2f_t result = mat2x2f_mul_vec2f (&m, &v);
+  return vec2f_eq (&expected, &result, eps, __func__);
 }
 
 bool
@@ -658,21 +588,17 @@ test_mat3x3f_mul_vec3f (void)
   const float eps = 1e-5f;
 
   // clang-format off
-  Mat3x3f_t m = { .m = {
+  Mat3x3f_t m =       { .m = {
      1.2f, -3.0f,  4.5f,
      2.0f,  0.5f, -1.0f,
     -7.0f,  3.3f,  2.2f
   }};
+  Vec3f_t v =         { 2.0f, -1.0f, 3.0f };
+  Vec3f_t expected =  { 18.9f, 0.5f, -10.7f };
   // clang-format on
-  Vec3f_t v = { 2.0f, -1.0f, 3.0f };
-  Vec3f_t expected = { 18.9f, 0.5f, -10.7f };
-  Vec3f_t result = mat3x3f_mul_vec3f (&m, &v);
 
-  if (!vec3f_eq (&expected, &result, eps, __func__))
-    {
-      return false;
-    }
-  return true;
+  Vec3f_t result = mat3x3f_mul_vec3f (&m, &v);
+  return vec3f_eq (&expected, &result, eps, __func__);
 }
 
 bool
@@ -681,21 +607,18 @@ test_mat3x4f_mul_vec4f (void)
   const float eps = 1e-5f;
 
   // clang-format off
-  Mat3x4f_t m = { .m = {
+  Mat3x4f_t m =       { .m = {
      1.5f, -2.0f,  0.5f,  4.0f,
     -3.2f,  1.1f,  2.0f, -0.5f,
      0.0f,  3.3f, -1.2f,  2.2f
   }};
-  // clang-format on
-  Vec4f_t v = { 2.0f, 1.0f, -3.0f, 0.5f };
-  Vec3f_t expected = { 1.5f, -11.55f, 8.0f };
-  Vec3f_t result = mat3x4f_mul_vec4f (&m, &v);
 
-  if (!vec3f_eq (&expected, &result, eps, __func__))
-    {
-      return false;
-    }
-  return true;
+  Vec4f_t v =         { 2.0f, 1.0f, -3.0f, 0.5f };
+  Vec3f_t expected =  { 1.5f, -11.55f, 8.0f };
+  // clang-format on
+
+  Vec3f_t result = mat3x4f_mul_vec4f (&m, &v);
+  return vec3f_eq (&expected, &result, eps, __func__);
 }
 
 bool
@@ -704,22 +627,18 @@ test_mat4x3f_mul_vec3f (void)
   const float eps = 1e-5f;
 
   // clang-format off
-  Mat4x3f_t m = { .m = {
+  Mat4x3f_t m =       { .m = {
      1.0f, -2.0f,  3.0f,
      0.5f,  4.0f, -1.0f,
     -3.5f,  2.2f,  0.0f,
      6.0f, -1.0f,  2.5f
   }};
+  Vec3f_t v =         { 2.0f, -1.0f, 0.5f };
+  Vec4f_t expected =  { 5.5f, -3.5f, -9.2f, 14.25f };
   // clang-format on
-  Vec3f_t v = { 2.0f, -1.0f, 0.5f };
-  Vec4f_t expected = { 5.5, -3.5, -9.2, 14.25 };
-  Vec4f_t result = mat4x3f_mul_vec3f (&m, &v);
 
-  if (!vec4f_eq (&expected, &result, eps, __func__))
-    {
-      return false;
-    }
-  return true;
+  Vec4f_t result = mat4x3f_mul_vec3f (&m, &v);
+  return vec4f_eq (&expected, &result, eps, __func__);
 }
 
 bool
@@ -728,20 +647,128 @@ test_mat4x4f_mul_vec4f (void)
   const float eps = 1e-5f;
 
   // clang-format off
-  Mat4x4f_t m = { .m = {
+  Mat4x4f_t m =       { .m = {
      1.0f,  2.0f, -1.0f,  0.5f,
     -3.0f,  0.0f,  4.0f, -2.0f,
      5.5f, -1.2f,  0.0f,  3.3f,
      2.0f,  1.0f,  1.0f, -1.0f
   }};
+  Vec4f_t v =         { 1.0f, -2.0f, 0.5f, 3.0f };
+  Vec4f_t expected =  { -2.0f, -7.0f, 17.8f, -2.5f };
   // clang-format on
-  Vec4f_t v = { 1.0f, -2.0f, 0.5f, 3.0f };
-  Vec4f_t expected = { -2.0f, -7.0f, 17.8f, -2.5f };
-  Vec4f_t result = mat4x4f_mul_vec4f (&m, &v);
 
-  if (!vec4f_eq (&expected, &result, eps, __func__))
-    {
-      return false;
-    }
-  return true;
+  Vec4f_t result = mat4x4f_mul_vec4f (&m, &v);
+  return vec4f_eq (&expected, &result, eps, __func__);
+}
+
+bool
+test_mat2x2f_mul_scalar (void)
+{
+  const float eps = 1e-5f;
+
+  // clang-format off
+  Mat2x2f_t m =         { .m = {
+    1.3f,  2.5f,
+    3.4f, -4.3f
+  }};
+
+  Mat2x2f_t expected =  { .m = {
+    2.6f,  5.0f,
+    6.8f, -8.6f
+  }};
+  // clang-format on
+
+  Mat2x2f_t result = mat2x2f_mul_scalar (&m, 2.0f);
+  return mat_eq (expected.m, result.m, 4, eps, __func__);
+}
+
+bool
+test_mat3x3f_mul_scalar (void)
+{
+  const float eps = 1e-5f;
+
+  // clang-format off
+  Mat3x3f_t m =         { .m = {
+    1.0f, 3.0f, -1.5,
+    0.0f, 6.0f, -4.0f
+  }};
+
+  Mat3x3f_t expected =  { .m = {
+    2.0f, 6.0f, -3.0f,
+    0.0f, 12.0f, -8.0f
+  }};
+  // clang-format on
+
+  Mat3x3f_t result = mat3x3f_mul_scalar (&m, 2.0f);
+  return mat_eq (expected.m, result.m, 9, eps, __func__);
+}
+
+bool test_mat3x4f_mul_scalar(void)
+{
+  const float eps = 1e-5f;
+
+  // clang-format off
+  Mat3x4f_t m =         { .m = {
+    1.0f,  3.0f, -1.5f, 2.0f,
+    0.0f,  6.0f, -4.0f, 5.5f,
+    1.5f, -2.5f,  3.0f, 0.0f
+  }};
+
+  Mat3x4f_t expected =  { .m = {
+    2.0f,  6.0f,  -3.0f,  4.0f,
+    0.0f,  12.0f, -8.0f,  11.0f,
+    3.0f, -5.0f,   6.0f,  0.0f
+  }};
+  // clang-format on
+
+  Mat3x4f_t result = mat3x4f_mul_scalar(&m, 2.0f);
+  return mat_eq(expected.m, result.m, 12, eps, __func__);
+}
+
+bool test_mat4x3f_mul_scalar(void)
+{
+  const float eps = 1e-5f;
+
+  // clang-format off
+  Mat4x3f_t m =         { .m = {
+    1.0f,  3.0f, -1.5f,
+    0.0f,  6.0f, -4.0f,
+    1.5f, -2.5f,  3.0f,
+    4.0f,  0.0f, -3.0f
+  }};
+
+  Mat4x3f_t expected =  { .m = {
+    2.0f,  6.0f,  -3.0f,
+    0.0f,  12.0f, -8.0f,
+    3.0f, -5.0f,   6.0f,
+    8.0f,  0.0f,  -6.0f
+  }};
+  // clang-format on
+
+  Mat4x3f_t result = mat4x3f_mul_scalar(&m, 2.0f);
+  return mat_eq(expected.m, result.m, 12, eps, __func__);
+}
+
+bool test_mat4x4f_mul_scalar(void)
+{
+  const float eps = 1e-5f;
+
+  // clang-format off
+  Mat4x4f_t m =         { .m = {
+    1.0f, 3.0f, -1.5f, 2.0f,
+    0.0f, 6.0f, -4.0f, 5.5f,
+    1.5f, -2.5f, 3.0f, 0.0f,
+    4.0f, 0.0f, -3.0f, 7.0f
+  }};
+
+  Mat4x4f_t expected =  { .m = {
+    2.0f,  6.0f,  -3.0f, 4.0f,
+    0.0f,  12.0f, -8.0f, 11.0f,
+    3.0f, -5.0f,   6.0f, 0.0f,
+    8.0f,  0.0f,  -6.0f, 14.0f
+  }};
+  // clang-format on
+
+  Mat4x4f_t result = mat4x4f_mul_scalar(&m, 2.0f);
+  return mat_eq(expected.m, result.m, 16, eps, __func__);
 }
