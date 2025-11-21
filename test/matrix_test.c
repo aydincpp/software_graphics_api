@@ -4,6 +4,7 @@
 #include <stdio.h>
 
 #define FAIL_MSG(name) printf ("%s failed\n", (name))
+#define NO_INV_MSG(name) printf ("%s failed, matrix has no inverse\n", (name))
 
 static bool
 float_eq (float a, float b, float eps)
@@ -1015,14 +1016,14 @@ test_mat4x4f_div_scalar (void)
   int size = 16;
 
   // clang-format off
-  Mat4x4f_t m = { .m = {
+  Mat4x4f_t m =         { .m = {
     2.0f,  6.0f,  -3.0f, 4.0f,
     0.0f,  12.0f, -8.0f, 11.0f,
     3.0f, -5.0f,   6.0f, 0.0f,
     8.0f,  0.0f,  -6.0f, 14.0f
   }};
 
-  Mat4x4f_t expected = { .m = {
+  Mat4x4f_t expected =  { .m = {
     1.0f, 3.0f, -1.5f, 2.0f,
     0.0f, 6.0f, -4.0f, 5.5f,
     1.5f, -2.5f, 3.0f, 0.0f,
@@ -1046,12 +1047,12 @@ test_mat2x2f_transpose (void)
   int size = 4;
 
   // clang-format off
-  Mat2x2f_t m = { .m = {
+  Mat2x2f_t m =         { .m = {
     1.0f, 2.0f,
     3.0f, 4.0f
   }};
 
-  Mat2x2f_t expected = { .m = {
+  Mat2x2f_t expected =  { .m = {
     1.0f, 3.0f,
     2.0f, 4.0f
   }};
@@ -1073,13 +1074,13 @@ test_mat3x3f_transpose (void)
   int size = 9;
 
   // clang-format off
-  Mat3x3f_t m = { .m = {
+  Mat3x3f_t m =         { .m = {
     1.0f, 2.0f, 3.0f,
     4.0f, 5.0f, 6.0f,
     7.0f, 8.0f, 9.0f
   }};
 
-  Mat3x3f_t expected = { .m = {
+  Mat3x3f_t expected =  { .m = {
     1.0f, 4.0f, 7.0f,
     2.0f, 5.0f, 8.0f,
     3.0f, 6.0f, 9.0f
@@ -1102,13 +1103,13 @@ test_mat3x4f_transpose (void)
   int size = 12;
 
   // clang-format off
-  Mat3x4f_t m = { .m = {
+  Mat3x4f_t m =         { .m = {
     1.0f,  2.0f,  3.0f,  4.0f,
     5.0f,  6.0f,  7.0f,  8.0f,
     9.0f,  10.0f, 11.0f, 12.0f
   }};
 
-  Mat4x3f_t expected = { .m = {
+  Mat4x3f_t expected =  { .m = {
     1.0f, 5.0f, 9.0f,
     2.0f, 6.0f, 10.0f,
     3.0f, 7.0f, 11.0f,
@@ -1132,14 +1133,14 @@ test_mat4x3f_transpose (void)
   int size = 12;
 
   // clang-format off
-  Mat4x3f_t m = { .m = {
+  Mat4x3f_t m =         { .m = {
     1.0f,  2.0f,  3.0f,
     4.0f,  5.0f,  6.0f,
     7.0f,  8.0f,  9.0f,
     10.0f, 11.0f, 12.0f
   }};
 
-  Mat3x4f_t expected = { .m = {
+  Mat3x4f_t expected =  { .m = {
     1.0f, 4.0f, 7.0f, 10.0f,
     2.0f, 5.0f, 8.0f, 11.0f,
     3.0f, 6.0f, 9.0f, 12.0f
@@ -1162,14 +1163,14 @@ test_mat4x4f_transpose (void)
   int size = 16;
 
   // clang-format off
-  Mat4x4f_t m = { .m = {
+  Mat4x4f_t m =         { .m = {
     1.0f,   2.0f,  3.0f,  4.0f,
     5.0f,   6.0f,  7.0f,  8.0f,
     9.0f,   10.0f, 11.0f, 12.0f,
     13.0f,  14.0f, 15.0f, 16.0f
   }};
 
-  Mat4x4f_t expected = { .m = {
+  Mat4x4f_t expected =  { .m = {
     1.0f, 5.0f, 9.0f,  13.0f,
     2.0f, 6.0f, 10.0f, 14.0f,
     3.0f, 7.0f, 11.0f, 15.0f,
@@ -1252,5 +1253,184 @@ test_mat4x4f_det (void)
       FAIL_MSG (__func__);
       return false;
     }
+  return true;
+}
+
+bool
+test_mat2x2f_inv (void)
+{
+  const float eps = 1e-5f;
+  int size = 4;
+
+  {
+    // clang-format off
+    Mat2x2f_t m =         { .m = {
+      4.0f, 7.0f,
+      2.0f, 6.0f
+    }};
+
+    Mat2x2f_t expected =  { .m = {
+      0.6f, -0.7f,
+      -0.2f,  0.4f
+    }};
+    // clang-format on
+
+    Mat2x2f_t result;
+    bool ok = mat2x2f_inv (&m, &result);
+
+    if (!ok)
+      {
+        NO_INV_MSG (__func__);
+        return false;
+      }
+
+    if (!mat_eq (expected.m, result.m, size, eps))
+      {
+        FAIL_MSG (__func__);
+        return false;
+      }
+  }
+
+  // no inverse test
+  {
+    // clang-format off
+    Mat2x2f_t m = { .m = {
+      1.0f, 2.0f,
+      2.0f, 4.0f
+    }};
+    // clang-format on
+
+    Mat2x2f_t out;
+    bool ok = mat2x2f_inv (&m, &out);
+
+    if (ok)
+      {
+        FAIL_MSG (__func__);
+        return false;
+      }
+  }
+
+  return true;
+}
+
+bool
+test_mat3x3f_inv (void)
+{
+  const float eps = 1e-5f;
+  int size = 9;
+
+  {
+    // clang-format off
+    Mat3x3f_t m =         { .m = {
+      1.0f, 2.0f, 3.0f,
+      0.0f, 1.0f, 4.0f,
+      5.0f, 6.0f, 0.0f
+    }};
+
+    Mat3x3f_t expected =  { .m = {
+      -24.0f,  18.0f,   5.0f,
+       20.0f, -15.0f,  -4.0f,
+      -5.0f,   4.0f,    1.0f
+    }};
+    // clang-format on
+
+    Mat3x3f_t result;
+    bool ok = mat3x3f_inv (&m, &result);
+
+    if (!ok)
+      {
+        NO_INV_MSG (__func__);
+        return false;
+      }
+
+    if (!mat_eq (expected.m, result.m, size, eps))
+      {
+        FAIL_MSG (__func__);
+        return false;
+      }
+  }
+
+  // no inverse
+  {
+    // clang-format off
+    Mat3x3f_t m = { .m = {
+      1.0f, 2.0f, 3.0f,
+      2.0f, 4.0f, 6.0f,
+      3.0f, 8.0f, 9.0f
+    }};
+    // clang-format on
+
+    Mat3x3f_t out;
+    bool ok = mat3x3f_inv (&m, &out);
+
+    if (ok)
+      {
+        FAIL_MSG (__func__);
+        return false;
+      }
+  }
+
+  return true;
+}
+
+bool
+test_mat4x4f_inv (void)
+{
+  const float eps = 1e-5f;
+  int size = 16;
+
+  {
+    // clang-format off
+    Mat4x4f_t m =         { .m = {
+      1,  0,  0,  0,
+      0,  2,  0,  0,
+      0,  0,  3,  0,
+      0,  0,  0,  4
+    }};
+
+    Mat4x4f_t expected =  { .m = {
+      1.0f,   0.0f,    0.0f,       0.0f,
+      0.0f,   0.5f,    0.0f,       0.0f,
+      0.0f,   0.0f,    0.3333333f, 0.0f,
+      0.0f,   0.0f,    0.0f,       0.25f
+    }};
+    // clang-format on
+
+    Mat4x4f_t result;
+    bool ok = mat4x4f_inv (&m, &result);
+
+    if (!ok)
+      {
+        NO_INV_MSG (__func__);
+        return false;
+      }
+
+    if (!mat_eq (expected.m, result.m, size, eps))
+      {
+        FAIL_MSG (__func__);
+        return false;
+      }
+  }
+
+  // no inverse
+  {
+    // clang-format off
+    Mat4x4f_t m = { .m = {
+      1, 2, 3, 4,
+      5, 6, 7, 8,
+      1, 2, 3, 4,
+      9, 1, 1, 1
+    }};
+    // clang-format on
+
+    Mat4x4f_t out;
+    bool ok = mat4x4f_inv (&m, &out);
+
+    if (ok)
+      {
+        FAIL_MSG (__func__);
+        return false;
+      }
+  }
   return true;
 }

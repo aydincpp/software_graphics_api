@@ -52,5 +52,9 @@ main (void)
   test_mat3x3f_det ();
   test_mat4x4f_det ();
 
+  test_mat2x2f_inv ();
+  test_mat3x3f_inv ();
+  test_mat4x4f_inv ();
+
   return 0;
 }
