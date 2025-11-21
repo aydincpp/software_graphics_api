@@ -48,5 +48,9 @@ main (void)
   test_mat4x3f_transpose ();
   test_mat4x4f_transpose ();
 
+  test_mat2x2f_det ();
+  test_mat3x3f_det ();
+  test_mat4x4f_det ();
+
   return 0;
 }

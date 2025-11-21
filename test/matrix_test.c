@@ -3,6 +3,8 @@
 #include <math.h>
 #include <stdio.h>
 
+#define FAIL_MSG(name) printf ("%s failed\n", (name))
+
 static bool
 float_eq (float a, float b, float eps)
 {
@@ -15,13 +17,12 @@ float_eq (float a, float b, float eps)
 }
 
 static bool
-mat_eq (const float *a, const float *b, int size, float eps, const char *name)
+mat_eq (const float *a, const float *b, int size, float eps)
 {
   for (int i = 0; i < size; i++)
     {
       if (!float_eq (a[i], b[i], eps))
         {
-          printf ("%s failed\n", name);
           return false;
         }
     }
@@ -88,7 +89,12 @@ test_mat2x2f_add (void)
   // clang-format on
 
   Mat2x2f_t result = mat2x2f_add (&a, &b);
-  return mat_eq (expected.m, result.m, size, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
 
 bool
@@ -116,7 +122,12 @@ test_mat3x3f_add (void)
   // clang-format on
 
   Mat3x3f_t result = mat3x3f_add (&a, &b);
-  return mat_eq (expected.m, result.m, size, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
 
 bool
@@ -144,7 +155,12 @@ test_mat3x4f_add (void)
   // clang-format on
 
   Mat3x4f_t result = mat3x4f_add (&a, &b);
-  return mat_eq (expected.m, result.m, size, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
 
 bool
@@ -175,7 +191,12 @@ test_mat4x3f_add (void)
   // clang-format on
 
   Mat4x3f_t result = mat4x3f_add (&a, &b);
-  return mat_eq (expected.m, result.m, size, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
 
 bool
@@ -206,7 +227,12 @@ test_mat4x4f_add (void)
   // clang-format on
 
   Mat4x4f_t result = mat4x4f_add (&a, &b);
-  return mat_eq (expected.m, result.m, size, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
 
 bool
@@ -231,7 +257,12 @@ test_mat2x2f_sub (void)
   // clang-format on
 
   Mat2x2f_t result = mat2x2f_sub (&a, &b);
-  return mat_eq (expected.m, result.m, size, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
 
 bool
@@ -259,7 +290,12 @@ test_mat3x3f_sub (void)
   // clang-format on
 
   Mat3x3f_t result = mat3x3f_sub (&a, &b);
-  return mat_eq (expected.m, result.m, size, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
 
 bool
@@ -287,7 +323,12 @@ test_mat3x4f_sub (void)
   // clang-format on
 
   Mat3x4f_t result = mat3x4f_sub (&a, &b);
-  return mat_eq (expected.m, result.m, size, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
 
 bool
@@ -318,7 +359,12 @@ test_mat4x3f_sub (void)
   // clang-format on
 
   Mat4x3f_t result = mat4x3f_sub (&a, &b);
-  return mat_eq (expected.m, result.m, size, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
 
 bool
@@ -349,7 +395,12 @@ test_mat4x4f_sub (void)
   // clang-format on
 
   Mat4x4f_t result = mat4x4f_sub (&a, &b);
-  return mat_eq (expected.m, result.m, size, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
 
 bool
@@ -376,7 +427,12 @@ test_mat2x2f_mul (void)
   // clang-format on
 
   Mat2x2f_t result = mat2x2f_mul (&a, &b);
-  return mat_eq (expected.m, result.m, size, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
 
 bool
@@ -406,7 +462,12 @@ test_mat3x3f_mul (void)
   // clang-format on
 
   Mat3x3f_t result = mat3x3f_mul (&a, &b);
-  return mat_eq (expected.m, result.m, size, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
 
 bool
@@ -439,7 +500,12 @@ test_mat4x4f_mul (void)
   // clang-format on
 
   Mat4x4f_t result = mat4x4f_mul (&a, &b);
-  return mat_eq (expected.m, result.m, size, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
 
 bool
@@ -469,7 +535,12 @@ test_mat3x3f_mul_mat3x4f (void)
   // clang-format on
 
   Mat3x4f_t result = mat3x3f_mul_mat3x4f (&a, &b);
-  return mat_eq (expected.m, result.m, size, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
 
 bool
@@ -500,7 +571,12 @@ test_mat3x4f_mul_mat4x4f (void)
   // clang-format on
 
   Mat3x4f_t result = mat3x4f_mul_mat4x4f (&a, &b);
-  return mat_eq (expected.m, result.m, size, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
 
 bool
@@ -532,7 +608,12 @@ test_mat4x3f_mul_mat3x4f (void)
   // clang-format on
 
   Mat4x4f_t result = mat4x3f_mul_mat3x4f (&a, &b);
-  return mat_eq (expected.m, result.m, size, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
 
 bool
@@ -564,7 +645,12 @@ test_mat4x4f_mul_mat4x3f (void)
   // clang-format on
 
   Mat4x3f_t result = mat4x4f_mul_mat4x3f (&a, &b);
-  return mat_eq (expected.m, result.m, size, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
 
 bool
@@ -665,6 +751,7 @@ bool
 test_mat2x2f_mul_scalar (void)
 {
   const float eps = 1e-5f;
+  int size = 4;
 
   // clang-format off
   Mat2x2f_t m =         { .m = {
@@ -679,13 +766,19 @@ test_mat2x2f_mul_scalar (void)
   // clang-format on
 
   Mat2x2f_t result = mat2x2f_mul_scalar (&m, 2.0f);
-  return mat_eq (expected.m, result.m, 4, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
 
 bool
 test_mat3x3f_mul_scalar (void)
 {
   const float eps = 1e-5f;
+  int size = 9;
 
   // clang-format off
   Mat3x3f_t m =         { .m = {
@@ -700,13 +793,19 @@ test_mat3x3f_mul_scalar (void)
   // clang-format on
 
   Mat3x3f_t result = mat3x3f_mul_scalar (&m, 2.0f);
-  return mat_eq (expected.m, result.m, 9, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
 
 bool
 test_mat3x4f_mul_scalar (void)
 {
   const float eps = 1e-5f;
+  int size = 12;
 
   // clang-format off
   Mat3x4f_t m =         { .m = {
@@ -723,13 +822,19 @@ test_mat3x4f_mul_scalar (void)
   // clang-format on
 
   Mat3x4f_t result = mat3x4f_mul_scalar (&m, 2.0f);
-  return mat_eq (expected.m, result.m, 12, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
 
 bool
 test_mat4x3f_mul_scalar (void)
 {
   const float eps = 1e-5f;
+  int size = 12;
 
   // clang-format off
   Mat4x3f_t m =         { .m = {
@@ -748,13 +853,19 @@ test_mat4x3f_mul_scalar (void)
   // clang-format on
 
   Mat4x3f_t result = mat4x3f_mul_scalar (&m, 2.0f);
-  return mat_eq (expected.m, result.m, 12, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
 
 bool
 test_mat4x4f_mul_scalar (void)
 {
   const float eps = 1e-5f;
+  int size = 16;
 
   // clang-format off
   Mat4x4f_t m =         { .m = {
@@ -773,13 +884,19 @@ test_mat4x4f_mul_scalar (void)
   // clang-format on
 
   Mat4x4f_t result = mat4x4f_mul_scalar (&m, 2.0f);
-  return mat_eq (expected.m, result.m, 16, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
 
 bool
 test_mat2x2f_div_scalar (void)
 {
   const float eps = 1e-5f;
+  int size = 4;
 
   // clang-format off
   Mat2x2f_t m =         { .m = {
@@ -794,13 +911,19 @@ test_mat2x2f_div_scalar (void)
   // clang-format on
 
   Mat2x2f_t result = mat2x2f_div_scalar (&m, 2.0f);
-  return mat_eq (expected.m, result.m, 4, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
 
 bool
 test_mat3x3f_div_scalar (void)
 {
   const float eps = 1e-5f;
+  int size = 9;
 
   // clang-format off
   Mat3x3f_t m =         { .m = {
@@ -817,13 +940,19 @@ test_mat3x3f_div_scalar (void)
   // clang-format on
 
   Mat3x3f_t result = mat3x3f_div_scalar (&m, 2.0f);
-  return mat_eq (expected.m, result.m, 9, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
 
 bool
 test_mat3x4f_div_scalar (void)
 {
   const float eps = 1e-5f;
+  int size = 12;
 
   // clang-format off
   Mat3x4f_t m =         { .m = {
@@ -840,13 +969,19 @@ test_mat3x4f_div_scalar (void)
   // clang-format on
 
   Mat3x4f_t result = mat3x4f_div_scalar (&m, 2.0f);
-  return mat_eq (expected.m, result.m, 12, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
 
 bool
 test_mat4x3f_div_scalar (void)
 {
   const float eps = 1e-5f;
+  int size = 12;
 
   // clang-format off
   Mat4x3f_t m =         { .m = {
@@ -865,13 +1000,19 @@ test_mat4x3f_div_scalar (void)
   // clang-format on
 
   Mat4x3f_t result = mat4x3f_div_scalar (&m, 2.0f);
-  return mat_eq (expected.m, result.m, 12, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
 
 bool
 test_mat4x4f_div_scalar (void)
 {
   const float eps = 1e-5f;
+  int size = 16;
 
   // clang-format off
   Mat4x4f_t m = { .m = {
@@ -890,13 +1031,19 @@ test_mat4x4f_div_scalar (void)
   // clang-format on
 
   Mat4x4f_t result = mat4x4f_div_scalar (&m, 2.0f);
-  return mat_eq (expected.m, result.m, 16, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
 
 bool
 test_mat2x2f_transpose (void)
 {
   const float eps = 1e-5f;
+  int size = 4;
 
   // clang-format off
   Mat2x2f_t m = { .m = {
@@ -911,13 +1058,19 @@ test_mat2x2f_transpose (void)
   // clang-format on
 
   Mat2x2f_t result = mat2x2f_transpose (&m);
-  return mat_eq (expected.m, result.m, 4, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
 
 bool
 test_mat3x3f_transpose (void)
 {
   const float eps = 1e-5f;
+  int size = 9;
 
   // clang-format off
   Mat3x3f_t m = { .m = {
@@ -934,13 +1087,19 @@ test_mat3x3f_transpose (void)
   // clang-format on
 
   Mat3x3f_t result = mat3x3f_transpose (&m);
-  return mat_eq (expected.m, result.m, 9, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
 
 bool
 test_mat3x4f_transpose (void)
 {
   const float eps = 1e-5f;
+  int size = 12;
 
   // clang-format off
   Mat3x4f_t m = { .m = {
@@ -958,13 +1117,19 @@ test_mat3x4f_transpose (void)
   // clang-format on
 
   Mat4x3f_t result = mat3x4f_transpose (&m);
-  return mat_eq (expected.m, result.m, 12, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
 
 bool
 test_mat4x3f_transpose (void)
 {
   const float eps = 1e-5f;
+  int size = 12;
 
   // clang-format off
   Mat4x3f_t m = { .m = {
@@ -982,13 +1147,19 @@ test_mat4x3f_transpose (void)
   // clang-format on
 
   Mat3x4f_t result = mat4x3f_transpose (&m);
-  return mat_eq (expected.m, result.m, 12, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
 
 bool
 test_mat4x4f_transpose (void)
 {
   const float eps = 1e-5f;
+  int size = 16;
 
   // clang-format off
   Mat4x4f_t m = { .m = {
@@ -1007,5 +1178,79 @@ test_mat4x4f_transpose (void)
   // clang-format on
 
   Mat4x4f_t result = mat4x4f_transpose (&m);
-  return mat_eq (expected.m, result.m, 16, eps, __func__);
+  if (!mat_eq (expected.m, result.m, size, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
+}
+
+bool
+test_mat2x2f_det (void)
+{
+  const float eps = 1e-5f;
+
+  // clang-format off
+  Mat2x2f_t m = { .m = {
+    5.693f, -0.412f,
+    -8.625f, 4.125f,
+  }};
+  // clang-format on
+
+  float expected = 19.93012f;
+  float result = mat2x2f_det (&m);
+  if (!float_eq (expected, result, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
+}
+
+bool
+test_mat3x3f_det (void)
+{
+  const float eps = 1e-5f;
+
+  // clang-format off
+  Mat3x3f_t m = { .m = {
+     3.2f, 5.1f, 4.5f,
+    -9.5f, 1.1f, 5.0f,
+     4.0f, 8.8f, 3.3f
+  }};
+  // clang-format on
+
+  float expected = -263.2989f;
+  float result = mat3x3f_det (&m);
+  if (!float_eq (expected, result, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
+}
+
+bool
+test_mat4x4f_det (void)
+{
+  const float eps = 1e-4f;
+
+  // clang-format off
+  Mat4x4f_t m = { .m = {
+     1.2f,  3.3f, -0.5f, -0.75f,
+     1.25f, 2.5f,  6.78f, 1.4f,
+     8.52f, 3.1f,  4.2f, -9.6f,
+    -1.45f, 1.5f,  5.5f,  4.5f
+  }};
+  // clang-format on
+
+  float expected = 7.8399f;
+  float result = mat4x4f_det (&m);
+  if (!float_eq (expected, result, eps))
+    {
+      FAIL_MSG (__func__);
+      return false;
+    }
+  return true;
 }
