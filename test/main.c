@@ -42,5 +42,11 @@ main (void)
   test_mat4x3f_div_scalar ();
   test_mat4x4f_div_scalar ();
 
+  test_mat2x2f_transpose ();
+  test_mat3x3f_transpose ();
+  test_mat3x4f_transpose ();
+  test_mat4x3f_transpose ();
+  test_mat4x4f_transpose ();
+
   return 0;
 }

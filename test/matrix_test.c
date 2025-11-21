@@ -776,7 +776,8 @@ test_mat4x4f_mul_scalar (void)
   return mat_eq (expected.m, result.m, 16, eps, __func__);
 }
 
-bool test_mat2x2f_div_scalar(void)
+bool
+test_mat2x2f_div_scalar (void)
 {
   const float eps = 1e-5f;
 
@@ -792,11 +793,12 @@ bool test_mat2x2f_div_scalar(void)
   }};
   // clang-format on
 
-  Mat2x2f_t result = mat2x2f_div_scalar(&m, 2.0f);
-  return mat_eq(expected.m, result.m, 4, eps, __func__);
+  Mat2x2f_t result = mat2x2f_div_scalar (&m, 2.0f);
+  return mat_eq (expected.m, result.m, 4, eps, __func__);
 }
 
-bool test_mat3x3f_div_scalar(void)
+bool
+test_mat3x3f_div_scalar (void)
 {
   const float eps = 1e-5f;
 
@@ -814,11 +816,12 @@ bool test_mat3x3f_div_scalar(void)
   }};
   // clang-format on
 
-  Mat3x3f_t result = mat3x3f_div_scalar(&m, 2.0f);
-  return mat_eq(expected.m, result.m, 9, eps, __func__);
+  Mat3x3f_t result = mat3x3f_div_scalar (&m, 2.0f);
+  return mat_eq (expected.m, result.m, 9, eps, __func__);
 }
 
-bool test_mat3x4f_div_scalar(void)
+bool
+test_mat3x4f_div_scalar (void)
 {
   const float eps = 1e-5f;
 
@@ -830,17 +833,18 @@ bool test_mat3x4f_div_scalar(void)
   }};
 
   Mat3x4f_t expected =  { .m = {
-    1.0f, 3.0f, -1.5f, 2.0f,
-    0.0f, 6.0f, -4.0f, 5.5f,
-    1.5f, -2.5f, 3.0f, 0.0f
+    1.0f,  3.0f, -1.5f, 2.0f,
+    0.0f,  6.0f, -4.0f, 5.5f,
+    1.5f, -2.5f,  3.0f, 0.0f
   }};
   // clang-format on
 
-  Mat3x4f_t result = mat3x4f_div_scalar(&m, 2.0f);
-  return mat_eq(expected.m, result.m, 12, eps, __func__);
+  Mat3x4f_t result = mat3x4f_div_scalar (&m, 2.0f);
+  return mat_eq (expected.m, result.m, 12, eps, __func__);
 }
 
-bool test_mat4x3f_div_scalar(void)
+bool
+test_mat4x3f_div_scalar (void)
 {
   const float eps = 1e-5f;
 
@@ -860,11 +864,12 @@ bool test_mat4x3f_div_scalar(void)
   }};
   // clang-format on
 
-  Mat4x3f_t result = mat4x3f_div_scalar(&m, 2.0f);
-  return mat_eq(expected.m, result.m, 12, eps, __func__);
+  Mat4x3f_t result = mat4x3f_div_scalar (&m, 2.0f);
+  return mat_eq (expected.m, result.m, 12, eps, __func__);
 }
 
-bool test_mat4x4f_div_scalar(void)
+bool
+test_mat4x4f_div_scalar (void)
 {
   const float eps = 1e-5f;
 
@@ -884,6 +889,123 @@ bool test_mat4x4f_div_scalar(void)
   }};
   // clang-format on
 
-  Mat4x4f_t result = mat4x4f_div_scalar(&m, 2.0f);
-  return mat_eq(expected.m, result.m, 16, eps, __func__);
+  Mat4x4f_t result = mat4x4f_div_scalar (&m, 2.0f);
+  return mat_eq (expected.m, result.m, 16, eps, __func__);
+}
+
+bool
+test_mat2x2f_transpose (void)
+{
+  const float eps = 1e-5f;
+
+  // clang-format off
+  Mat2x2f_t m = { .m = {
+    1.0f, 2.0f,
+    3.0f, 4.0f
+  }};
+
+  Mat2x2f_t expected = { .m = {
+    1.0f, 3.0f,
+    2.0f, 4.0f
+  }};
+  // clang-format on
+
+  Mat2x2f_t result = mat2x2f_transpose (&m);
+  return mat_eq (expected.m, result.m, 4, eps, __func__);
+}
+
+bool
+test_mat3x3f_transpose (void)
+{
+  const float eps = 1e-5f;
+
+  // clang-format off
+  Mat3x3f_t m = { .m = {
+    1.0f, 2.0f, 3.0f,
+    4.0f, 5.0f, 6.0f,
+    7.0f, 8.0f, 9.0f
+  }};
+
+  Mat3x3f_t expected = { .m = {
+    1.0f, 4.0f, 7.0f,
+    2.0f, 5.0f, 8.0f,
+    3.0f, 6.0f, 9.0f
+  }};
+  // clang-format on
+
+  Mat3x3f_t result = mat3x3f_transpose (&m);
+  return mat_eq (expected.m, result.m, 9, eps, __func__);
+}
+
+bool
+test_mat3x4f_transpose (void)
+{
+  const float eps = 1e-5f;
+
+  // clang-format off
+  Mat3x4f_t m = { .m = {
+    1.0f,  2.0f,  3.0f,  4.0f,
+    5.0f,  6.0f,  7.0f,  8.0f,
+    9.0f,  10.0f, 11.0f, 12.0f
+  }};
+
+  Mat4x3f_t expected = { .m = {
+    1.0f, 5.0f, 9.0f,
+    2.0f, 6.0f, 10.0f,
+    3.0f, 7.0f, 11.0f,
+    4.0f, 8.0f, 12.0f
+  }};
+  // clang-format on
+
+  Mat4x3f_t result = mat3x4f_transpose (&m);
+  return mat_eq (expected.m, result.m, 12, eps, __func__);
+}
+
+bool
+test_mat4x3f_transpose (void)
+{
+  const float eps = 1e-5f;
+
+  // clang-format off
+  Mat4x3f_t m = { .m = {
+    1.0f,  2.0f,  3.0f,
+    4.0f,  5.0f,  6.0f,
+    7.0f,  8.0f,  9.0f,
+    10.0f, 11.0f, 12.0f
+  }};
+
+  Mat3x4f_t expected = { .m = {
+    1.0f, 4.0f, 7.0f, 10.0f,
+    2.0f, 5.0f, 8.0f, 11.0f,
+    3.0f, 6.0f, 9.0f, 12.0f
+  }};
+  // clang-format on
+
+  Mat3x4f_t result = mat4x3f_transpose (&m);
+  return mat_eq (expected.m, result.m, 12, eps, __func__);
+}
+
+bool
+test_mat4x4f_transpose (void)
+{
+  const float eps = 1e-5f;
+
+  // clang-format off
+  Mat4x4f_t m = { .m = {
+    1.0f,   2.0f,  3.0f,  4.0f,
+    5.0f,   6.0f,  7.0f,  8.0f,
+    9.0f,   10.0f, 11.0f, 12.0f,
+    13.0f,  14.0f, 15.0f, 16.0f
+  }};
+
+  Mat4x4f_t expected = { .m = {
+    1.0f, 5.0f, 9.0f,  13.0f,
+    2.0f, 6.0f, 10.0f, 14.0f,
+    3.0f, 7.0f, 11.0f, 15.0f,
+    4.0f, 8.0f, 12.0f, 16.0f
+  }};
+  // clang-format on
+
+  Mat4x4f_t result = mat4x4f_transpose (&m);
+  return mat_eq (expected.m, result.m, 16, eps, __func__);
 }
