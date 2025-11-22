@@ -56,8 +56,4 @@ bool test_mat2x2f_inv (void);
 bool test_mat3x3f_inv (void);
 bool test_mat4x4f_inv (void);
 
-bool test_mat2x2f_identity (void);
-bool test_mat3x3f_identity (void);
-bool test_mat4x4f_identity (void);
-
 #endif
