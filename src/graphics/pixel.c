@@ -109,8 +109,10 @@ get_pixel (Framebuffer *fb, Vec2i_t pos)
   // Guess what
   int bytes_per_pixel = fb->vinfo.bits_per_pixel / 8;
 
+  // Handle different bytes per pixel and store pixel's bytes in raw
   if (bytes_per_pixel == 4)
     {
+    // 32-bit framebuffer
 #if CPU_X86
       raw = *(uint32_t *)ptr;
 #else
@@ -124,6 +126,7 @@ get_pixel (Framebuffer *fb, Vec2i_t pos)
     }
   else if (bytes_per_pixel == 2)
     {
+    // 16-bit framebuffer
 #if CPU_X86
       raw = *(uint16_t *)ptr;
 #else
@@ -137,6 +140,7 @@ get_pixel (Framebuffer *fb, Vec2i_t pos)
       return c;
     }
 
+  // Convert color bytes to Color8_t
   // clang-format off
   return unpack_fb_color(
     raw,
