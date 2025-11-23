@@ -78,6 +78,11 @@ draw_triangle_wireframe (Framebuffer *fb, Pixel_t p0, Pixel_t p1, Pixel_t p2)
   draw_line (fb, p2, p0);
 }
 
+/* 
+ * returns the 2d cross product which is twice the area of the triangle abc.
+ * the sign tells which side of edge ab the point c lies on.
+ * if the 2d cross product is 0 then it means the point lies on the line.
+ * */
 static inline float
 edge_func (Vec2i_t a, Vec2i_t b, Vec2i_t c)
 {
@@ -89,44 +94,47 @@ edge_func (Vec2i_t a, Vec2i_t b, Vec2i_t c)
 void
 draw_triangle_fill (Framebuffer *fb, Pixel_t v0, Pixel_t v1, Pixel_t v2)
 {
+  /* triangle's bounding box */
   int xmin = (int)fminf (fminf (v0.pos.x, v1.pos.x), v2.pos.x);
   int xmax = (int)fmaxf (fmaxf (v0.pos.x, v1.pos.x), v2.pos.x);
   int ymin = (int)fminf (fminf (v0.pos.y, v1.pos.y), v2.pos.y);
   int ymax = (int)fmaxf (fmaxf (v0.pos.y, v1.pos.y), v2.pos.y);
 
-  Pixel_t p;
+  /* 2x area of the triangle */
   float area = edge_func (v0.pos, v1.pos, v2.pos);
 
+  /* iterate over all the pixels in the bounding box of the triangle */
   for (int y = ymin; y < ymax; y++)
+  {
+    for (int x = xmin; x < xmax; x++)
     {
-      for (int x = xmin; x < xmax; x++)
-        {
-          p.pos.x = x;
-          p.pos.y = y;
+      /* position of the pixel */
+      Vec2i_t p = { x, y };
 
-          /* area of each sub-triangle */
-          float w0 = edge_func (v0.pos, v1.pos, p.pos);
-          float w1 = edge_func (v1.pos, v2.pos, p.pos);
-          float w2 = edge_func (v2.pos, v0.pos, p.pos);
+      /* 2x area of each sub-triangle */
+      float w0 = edge_func (v0.pos, v1.pos, p);
+      float w1 = edge_func (v1.pos, v2.pos, p);
+      float w2 = edge_func (v2.pos, v0.pos, p);
 
-          /* areal coordinates or barycentric coordinates */
-          float b0 = w1 / area;
-          float b1 = w2 / area;
-          float b2 = w0 / area;
+      /* check if the pixel is inside the the triangle */
+      if (!((w0 >= 0 && w1 >= 0 && w2 >= 0) ||
+        (w0 <= 0 && w1 <= 0 && w2 <= 0)))
+        continue;
 
-          Color8_t c0 = v0.color;
-          Color8_t c1 = v1.color;
-          Color8_t c2 = v2.color;
+      /* barycentric coordinates */
+      float b0 = w1 / area;
+      float b1 = w2 / area;
+      float b2 = w0 / area;
 
-          if ((w0 >= 0 && w1 >= 0 && w2 >= 0)
-              || (w0 <= 0 && w1 <= 0 && w2 <= 0))
-            {
-              p.color.r = b0 * c0.r + b1 * c1.r + b2 * c2.r;
-              p.color.g = b0 * c0.g + b1 * c1.g + b2 * c2.g;
-              p.color.b = b0 * c0.b + b1 * c1.b + b2 * c2.b;
-              p.color.a = b0 * c0.a + b1 * c1.a + b2 * c2.a;
-              draw_pixel (fb, p);
-            }
-        }
+      /* interpolate color for the out pixel */
+      Color8_t c;
+      c.r = b0 * v0.color.r + b1 * v1.color.r + b2 * v2.color.r;
+      c.g = b0 * v0.color.g + b1 * v1.color.g + b2 * v2.color.g;
+      c.b = b0 * v0.color.b + b1 * v1.color.b + b2 * v2.color.b;
+      c.a = b0 * v0.color.a + b1 * v1.color.a + b2 * v2.color.a;
+
+      Pixel_t out = {p, c};
+      draw_pixel (fb, out);
     }
+  }
 }
