@@ -78,7 +78,7 @@ draw_triangle_wireframe (Framebuffer *fb, Pixel_t p0, Pixel_t p1, Pixel_t p2)
   draw_line (fb, p2, p0);
 }
 
-/* 
+/*
  * returns the 2d cross product which is twice the area of the triangle abc.
  * the sign tells which side of edge ab the point c lies on.
  * if the 2d cross product is 0 then it means the point lies on the line.
@@ -105,36 +105,36 @@ draw_triangle_fill (Framebuffer *fb, Pixel_t v0, Pixel_t v1, Pixel_t v2)
 
   /* iterate over all the pixels in the bounding box of the triangle */
   for (int y = ymin; y < ymax; y++)
-  {
-    for (int x = xmin; x < xmax; x++)
     {
-      /* position of the pixel */
-      Vec2i_t p = { x, y };
+      for (int x = xmin; x < xmax; x++)
+        {
+          /* position of the pixel */
+          Vec2i_t p = { x, y };
 
-      /* 2x area of each sub-triangle */
-      float w0 = edge_func (v0.pos, v1.pos, p);
-      float w1 = edge_func (v1.pos, v2.pos, p);
-      float w2 = edge_func (v2.pos, v0.pos, p);
+          /* 2x area of each sub-triangle */
+          float w0 = edge_func (v0.pos, v1.pos, p);
+          float w1 = edge_func (v1.pos, v2.pos, p);
+          float w2 = edge_func (v2.pos, v0.pos, p);
 
-      /* check if the pixel is inside the the triangle */
-      if (!((w0 >= 0 && w1 >= 0 && w2 >= 0) ||
-        (w0 <= 0 && w1 <= 0 && w2 <= 0)))
-        continue;
+          /* check if the pixel is inside the the triangle */
+          if (!((w0 >= 0 && w1 >= 0 && w2 >= 0)
+                || (w0 <= 0 && w1 <= 0 && w2 <= 0)))
+            continue;
 
-      /* barycentric coordinates */
-      float b0 = w1 / area;
-      float b1 = w2 / area;
-      float b2 = w0 / area;
+          /* barycentric coordinates */
+          float b0 = w1 / area;
+          float b1 = w2 / area;
+          float b2 = w0 / area;
 
-      /* interpolate color for the out pixel */
-      Color8_t c;
-      c.r = b0 * v0.color.r + b1 * v1.color.r + b2 * v2.color.r;
-      c.g = b0 * v0.color.g + b1 * v1.color.g + b2 * v2.color.g;
-      c.b = b0 * v0.color.b + b1 * v1.color.b + b2 * v2.color.b;
-      c.a = b0 * v0.color.a + b1 * v1.color.a + b2 * v2.color.a;
+          /* interpolate color for the out pixel */
+          Color8_t c;
+          c.r = b0 * v0.color.r + b1 * v1.color.r + b2 * v2.color.r;
+          c.g = b0 * v0.color.g + b1 * v1.color.g + b2 * v2.color.g;
+          c.b = b0 * v0.color.b + b1 * v1.color.b + b2 * v2.color.b;
+          c.a = b0 * v0.color.a + b1 * v1.color.a + b2 * v2.color.a;
 
-      Pixel_t out = {p, c};
-      draw_pixel (fb, out);
+          Pixel_t out = { p, c };
+          draw_pixel (fb, out);
+        }
     }
-  }
 }
