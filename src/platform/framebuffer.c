@@ -1,4 +1,6 @@
 #include "platform/framebuffer.h"
+#include "graphics/color.h"
+#include "graphics/pixel.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <sys/fcntl.h>
@@ -85,4 +87,18 @@ fb_unmap (Framebuffer *fb)
   munmap (fb->fbp, fb->screensize);
   fb->fbp = NULL;
   return true;
+}
+
+void
+fb_clear_color (Framebuffer *fb, uint8_t r, uint8_t g, uint8_t b)
+{
+  int width = fb->vinfo.xres;
+  int height = fb->vinfo.yres;
+  int pixels = width * height;
+
+  for (int y = 0; y < height; y++) {
+    for (int x = 0; x < width; x++) {
+      set_pixel(fb, (Vec2i_t){x, y}, (Color8_t){r, g, b, 0});
+    }
+  }
 }

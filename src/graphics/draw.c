@@ -95,8 +95,6 @@ draw_triangle_fill (Framebuffer *fb, Pixel_t v0, Pixel_t v1, Pixel_t v2)
   int ymax = (int)fmaxf (fmaxf (v0.pos.y, v1.pos.y), v2.pos.y);
 
   Pixel_t p;
-  p.color = (Color8_t){ 0, 255, 0, 255 };
-
   float area = edge_func (v0.pos, v1.pos, v2.pos);
 
   for (int y = ymin; y < ymax; y++)
@@ -106,17 +104,15 @@ draw_triangle_fill (Framebuffer *fb, Pixel_t v0, Pixel_t v1, Pixel_t v2)
           p.pos.x = x;
           p.pos.y = y;
 
-          // area of each sub-triangle
-          // v1 - v0 = edge
-          // The direction from v0 to v1
+          /* area of each sub-triangle */
           float w0 = edge_func (v0.pos, v1.pos, p.pos);
           float w1 = edge_func (v1.pos, v2.pos, p.pos);
           float w2 = edge_func (v2.pos, v0.pos, p.pos);
 
-          // areal coordinates or barycentric coordinates
-          float b0 = w0 / area;
-          float b1 = w1 / area;
-          float b2 = w2 / area;
+          /* areal coordinates or barycentric coordinates */
+          float b0 = w1 / area;
+          float b1 = w2 / area;
+          float b2 = w0 / area;
 
           Color8_t c0 = v0.color;
           Color8_t c1 = v1.color;

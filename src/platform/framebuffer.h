@@ -17,12 +17,13 @@ typedef struct
 } Framebuffer;
 
 /* clang-format off */
-bool  fb_open       (Framebuffer *fb, const char *path);
-void  fb_close      (Framebuffer *fb);
-bool  fb_get_info   (Framebuffer *fb);
-bool  fb_put_info   (Framebuffer *fb);
-bool  fb_map        (Framebuffer *fb);
-bool  fb_unmap      (Framebuffer *fb);
+bool  fb_open         (Framebuffer *fb, const char *path);
+void  fb_close        (Framebuffer *fb);
+bool  fb_get_info     (Framebuffer *fb);
+bool  fb_put_info     (Framebuffer *fb);
+bool  fb_map          (Framebuffer *fb);
+bool  fb_unmap        (Framebuffer *fb);
+void  fb_clear_color  (Framebuffer *fb, uint8_t r, uint8_t g, uint8_t b);
 /* clang-format on */
 
 #endif /* FB_H */
