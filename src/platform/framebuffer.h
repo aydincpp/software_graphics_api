@@ -19,6 +19,7 @@ typedef struct
   struct fb_var_screeninfo   vinfo;         /**< Variable screen information */
   size_t                     screensize;    /**< Total size in bytes of framebuffer memory */
   uint8_t                   *fbp;           /**< Pointer to mapped framebuffer memory */
+  uint8_t                   *back_buffer;   /**< Pointer to backbuffer */
 } Framebuffer;
 
 /**
