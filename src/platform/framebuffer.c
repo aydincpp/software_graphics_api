@@ -94,7 +94,6 @@ fb_clear_color (Framebuffer *fb, uint8_t r, uint8_t g, uint8_t b)
 {
   int width = fb->vinfo.xres;
   int height = fb->vinfo.yres;
-  int pixels = width * height;
 
   for (int y = 0; y < height; y++) {
     for (int x = 0; x < width; x++) {
