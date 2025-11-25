@@ -423,4 +423,38 @@ Mat4x4f_t mat4x4f_scale (const Mat4x4f_t *m, Vec3f_t v);
  */
 Mat4x4f_t mat4x4f_rotation (const Mat4x4f_t *m, Vec3f_t v);
 
+/**
+ * @brief Creates a view matrix for a camera.
+ * @param eye Position of the camera.
+ * @param target Point the camera is looking at.
+ * @param up Up direction vector.
+ * @return View matrix.
+ */
+Mat4x4f_t mat4x4f_lookat (Vec3f_t eye, Vec3f_t target, Vec3f_t up);
+
+/**
+ * @brief Creates a symmetric perspective projection matrix.
+ * @param angle Vertical field of view in radians.
+ * @param ratio Aspect ratio (width / height).
+ * @param near Near clipping plane distance.
+ * @param far Far clipping plane distance.
+ * @return Perspective projection matrix.
+ */
+Mat4x4f_t mat4x4f_perspective (float angle, float ratio, float near,
+                               float far);
+
+/**
+ * @brief Creates a perspective projection matrix with arbitrary frustum
+ * bounds.
+ * @param l Left boundary on the near clipping plane.
+ * @param r Right boundary on the near clipping plane.
+ * @param t Top boundary on the near clipping plane.
+ * @param b Bottom boundary on the near clipping plane.
+ * @param n Near clipping plane distance.
+ * @param f Far clipping plane distance.
+ * @return Projection matrix with specified frustum.
+ */
+Mat4x4f_t mat4x4f_frustum (float l, float r, float t, float b, float n,
+                           float f);
+
 #endif /* MATRIX_H */

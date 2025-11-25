@@ -820,3 +820,48 @@ mat4x4f_rotation (const Mat4x4f_t *m, Vec3f_t v)
 
   return mat4x4f_mul (m, &R);
 }
+
+Mat4x4f_t
+mat4x4f_lookat (Vec3f_t eye, Vec3f_t target, Vec3f_t up)
+{
+  Vec3f_t forward = vec3f_normalize (vec3f_sub (target, eye));
+  Vec3f_t right = vec3f_normalize (vec3f_cross (forward, up));
+  Vec3f_t true_up = vec3f_cross (right, forward);
+
+  /* clang-format off */
+  return (Mat4x4f_t){ .m = {
+     right.x,                 true_up.x,                -forward.x,               0,
+     right.y,                 true_up.y,                -forward.y,               0,
+     right.z,                 true_up.z,                -forward.z,               0,
+    -vec3f_dot(right, eye),  -vec3f_dot(true_up, eye),  -vec3f_dot(forward, eye), 1
+  }};
+  /* clang-format on */
+}
+
+Mat4x4f_t
+mat4x4f_perspective (float angle, float ratio, float near, float far)
+{
+  float f = 1.0f / tanf (angle * 0.5f);
+
+  /* clang-format off */
+  return (Mat4x4f_t) {.m = {
+    f / ratio,  0.0f, 0.0f,                             0.0f,
+    0.0f,       f,    0.0f,                             0.0f,
+    0.0f,       0.0f, (far + near) / (near - far),     -1.0f,
+    0.0f,       0.0f, (2 * far * near) / (near - far),  0.0f
+  }};
+  /* clang-format on */
+}
+
+Mat4x4f_t
+mat4x4f_frustum (float l, float r, float t, float b, float n, float f)
+{
+  /* clang-format off */
+  return (Mat4x4f_t) {.m = {
+    (2 * n) / (r - l), 0,                     (r + l) / (r - l),  0,
+    0,                 (2 * n) / (t - b),     (t + b) / (t - b),  0,
+    0,                 0,                    -(f + n) / (f - n),  (-2 * f * n) / (f - n),
+    0,                 0,                    -1,                  0
+  }};
+  /* clang-format on */
+}
