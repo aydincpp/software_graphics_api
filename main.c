@@ -1,4 +1,4 @@
-#include "graphics/draw.h"
+#include "graphics/buffer.h"
 #include "platform/framebuffer.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,36 +22,48 @@ main (void)
       return EXIT_FAILURE;
     }
 
-  /* triangle vertices */
-  Pixel_t p0
-      = { .pos = { .x = fb.vinfo.xres / 4, .y = fb.vinfo.yres / 4 * 3 },
-          .color
-          = { .r = 255, .g = 0, .b = 0, .a = 255 } }; /* left-bottom red */
+  /* clang-format off */
+  float vertices[] = {
+    /* triangle 1 */
+    /* position */        /* color */
+    -0.5f, -0.5f, 0.0f,   1.0f, 0.0f, 0.0f, 1.0f,  /* bottom-left,  red */
+     0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 1.0f,  /* bottom-right, green */
+     0.5f,  0.5f, 0.0f,   0.0f, 0.0f, 1.0f, 1.0f,  /* top-right,    blue */
 
-  Pixel_t p1
-      = { .pos = { .x = fb.vinfo.xres / 4 * 3, .y = fb.vinfo.yres / 4 * 3 },
-          .color
-          = { .r = 0, .g = 255, .b = 0, .a = 255 } }; /* right-bottom green */
+    /* triangle 2 */
+    /* position */       /* color */
+    -0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f, 1.0f,   /* bottom-left, red */
+     0.5f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f, 1.0f,   /* top-right,   blue */
+    -0.5f,  0.5f, 0.0f,  1.0f, 1.0f, 0.0f, 1.0f,   /* top-left,    yellow */
+  };
 
-  Pixel_t p2
-      = { .pos = { .x = fb.vinfo.xres / 2, .y = fb.vinfo.yres / 4 },
-          .color
-          = { .r = 0, .g = 0, .b = 255, .a = 255 } }; /* middle-top blue */
+  /* define vertex attributes */
+  VertexAttribute attributes[] = {
+    {ATTR_POSITION, 0,                  sizeof(float) * 3, 3},
+    {ATTR_COLOR,    sizeof(float) * 3,  sizeof(float) * 4, 4}
+  };
+  /* clang-format on */
 
-  /* draw fill mode */
-  draw_triangle_fill (&fb, p0, p1, p2);
+  VertexLayout layout = vertex_layout_create(attributes, 2, sizeof(float) * 7);
 
-  printf ("Press Enter to see wireframe mode.\n");
-  getchar ();
+  /* create a vertex buffer initialized with the vertex data */
+  VertexBuffer vertex_buffer = vertex_buffer_create(vertices, layout, 6);
 
-  /* clear framebuffer */
-  fb_clear_color (&fb, 0, 0, 0);
+  /* access and print each vertex's position and color */
+  for (uint32_t i = 0; i < vertex_buffer.vertex_count; i++)
+  {
+    float *pos = (float *)vertex_buffer_get_attribute_pointer(&vertex_buffer, i, ATTR_POSITION);
+    float *col = (float *)vertex_buffer_get_attribute_pointer(&vertex_buffer, i, ATTR_COLOR);
 
-  /* draw wireframe mode */
-  draw_triangle_wireframe (&fb, p0, p1, p2);
+    if (pos && col)
+    {
+      printf("Vertex %u Position: (%f, %f, %f) Color: (%f, %f, %f, %f)\n",
+             i, pos[0], pos[1], pos[2], col[0], col[1], col[2], col[3]);
+    }
+  }
 
-  printf ("Press Enter to exit.\n");
-  getchar ();
+  /* destroy vertex buffer */
+  vertex_buffer_destroy(&vertex_buffer);
 
   fb_close (&fb);
   return EXIT_SUCCESS;
