@@ -117,7 +117,7 @@ vertex_buffer_get_attribute_pointer (const VertexBuffer *buffer,
       return NULL;
     }
 
-  for (uint32_t i = 0; buffer->layout.attribute_count; ++i)
+  for (uint32_t i = 0; i < buffer->layout.attribute_count; ++i)
     {
       VertexAttribute *attr = &buffer->layout.attributes[i];
       if (attr->semantic == semantic)
