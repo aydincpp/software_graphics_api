@@ -108,6 +108,12 @@ void
 draw_pixel (Framebuffer *fb,
             Pixel_t p)
 {
+  int x = p.pos.x;
+  int y = p.pos.y;
+
+  if (x < 0 || x >= (int)fb->vinfo.xres) return;
+  if (y < 0 || y >= (int)fb->vinfo.yres) return;
+
   set_pixel (fb, p.pos, p.color);
 }
 
@@ -204,10 +210,10 @@ draw_triangle_fill (Framebuffer *fb,
                     Pixel_t v2)
 {
   /* triangle's bounding box */
-  int xmin = (int)fminf (fminf (v0.pos.x, v1.pos.x), v2.pos.x);
-  int xmax = (int)fmaxf (fmaxf (v0.pos.x, v1.pos.x), v2.pos.x);
-  int ymin = (int)fminf (fminf (v0.pos.y, v1.pos.y), v2.pos.y);
-  int ymax = (int)fmaxf (fmaxf (v0.pos.y, v1.pos.y), v2.pos.y);
+  int xmin = fmaxf(0, (int)floorf(math_fmin3f(v0.pos.x, v1.pos.x, v2.pos.x)));
+  int xmax = fminf(fb->vinfo.xres - 1, (int)ceilf(math_fmax3f(v0.pos.x, v1.pos.x, v2.pos.x)));
+  int ymin = fmaxf(0, (int)floorf(math_fmin3f(v0.pos.y, v1.pos.y, v2.pos.y)));
+  int ymax = fminf(fb->vinfo.yres - 1, (int)ceilf(math_fmax3f(v0.pos.y, v1.pos.y, v2.pos.y)));
 
   /* 2x area of the triangle */
   float area = edge_func (v0.pos, v1.pos, v2.pos);
