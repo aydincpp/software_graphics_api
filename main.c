@@ -85,7 +85,7 @@ int main (void)
   if (!fb_init(&fb, "/dev/fb0"))
     return EXIT_FAILURE;
 
-  // define Input
+  // initialize input
   Input input;
   input_init(&input);
 
