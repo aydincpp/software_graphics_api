@@ -2,20 +2,20 @@
 #define MATH_UTILS_H
 
 /* Define PI with enough digits */
-#define MATH_PI 3.14159265358979323846
+#define PI 3.14159265358979323846
 
 /* Convert degrees to radians */
 static inline float
-math_deg_to_rad (float deg)
+deg_to_rad (float deg)
 {
-  return deg * (MATH_PI / 180.0f);
+  return deg * (PI / 180.0f);
 }
 
 /* Convert radians to degrees */
 static inline float
-math_rad_to_deg (float rad)
+rad_to_deg (float rad)
 {
-  return rad * (180.0f / MATH_PI);
+  return rad * (180.0f / PI);
 }
 
 /* Get absolute value of a float */
@@ -98,22 +98,58 @@ math_ceilf_to_float (float x)
 }
 
 static inline float
-math_fmin3f (float a, float b, float c)
+fmin2f (float a, float b)
+{
+  return (a < b) ? a : b;
+}
+
+static inline float
+fmax2f (float a, float b)
+{
+  return (a > b) ? a : b;
+}
+
+static inline float
+fmin3f (float a, float b, float c)
 {
   float t = (a < b) ? a : b;
   return (t < c) ? t : c;
 }
 
 static inline float
-math_fmax3f (float a, float b, float c)
+fmax3f (float a, float b, float c)
 {
   float t = (a > b) ? a : b;
   return (t > c) ? t : c;
 }
 
+static inline int
+min2i (int a, int b) {
+  return (a < b) ? a : b;
+}
+
+static inline int
+max2i (int a, int b) {
+  return (a > b) ? a : b;
+}
+
+static inline int
+min3i (int a, int b, int c)
+{
+  int t = (a < b) ? a : b;
+  return (t < c) ? t : c;
+}
+
+static inline int
+max3i (int a, int b, int c)
+{
+  int t = (a > b) ? a : b;
+  return (t > c) ? t : c;
+}
+
 /* Clamp float x between min and max */
 static inline float
-math_clampf (float x, float min, float max)
+clampf (float x, float min, float max)
 {
   if (x < min)
     return min;
@@ -124,7 +160,7 @@ math_clampf (float x, float min, float max)
 
 /* Clamp int x between min and max */
 static inline int
-math_clampi (int x, int min, int max)
+clampi (int x, int min, int max)
 {
   if (x < min)
     return min;
@@ -135,14 +171,14 @@ math_clampi (int x, int min, int max)
 
 /* Linear interpolation between a and b by t (float) */
 static inline float
-math_lerpf (float a, float b, float t)
+lerpf (float a, float b, float t)
 {
   return a + t * (b - a);
 }
 
 /* Linear interpolation between a and b by t (int) */
 static inline int
-math_lerpi (int a, int b, float t)
+lerpi (int a, int b, float t)
 {
   return a + t * (b - a);
 }
