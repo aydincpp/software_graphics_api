@@ -18,6 +18,7 @@ typedef struct
   struct fb_fix_screeninfo   finfo;         /**< Fixed screen information */
   struct fb_var_screeninfo   vinfo;         /**< Variable screen information */
   size_t                     size;          /**< Byte size of render area */
+  float                      aspect;        /**< Aspect ratio of the screen */
   uint8_t                   *fbp;           /**< Pointer to mapped framebuffer memory */
   uint8_t                   *back_buffer;   /**< Pointer to backbuffer */
 } Framebuffer;

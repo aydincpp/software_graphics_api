@@ -16,6 +16,7 @@ fb_init (Framebuffer* fb,
 
   fb->size = fb->vinfo.xres * fb->vinfo.yres * (fb->vinfo.bits_per_pixel / 8);
   fb->back_buffer = malloc(fb->size);
+  fb->aspect = (float)fb->vinfo.xres / fb->vinfo.yres;
   if (!fb->back_buffer) return false;
 
   return true;
