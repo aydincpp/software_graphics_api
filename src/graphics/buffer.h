@@ -139,9 +139,9 @@ void vertex_buffer_update (VertexBuffer *buffer,
  * @return Pointer to the attribute data within the vertex, or NULL if
  *         the attribute or vertex index is invalid.
  */
-void *vertex_buffer_get_attribute_pointer (const VertexBuffer *buffer,
-                                           uint32_t vertex_index,
-                                           AttributeSemantic semantic);
+void *get_attribute_pointer (const VertexBuffer *buffer,
+                             uint32_t vertex_index,
+                             AttributeSemantic semantic);
 
 /**
  * @brief Create an index buffer and initialize its data.

@@ -117,7 +117,7 @@ vertex_buffer_update (VertexBuffer *buffer,
 }
 
 void *
-vertex_buffer_get_attribute_pointer (const VertexBuffer *buffer,
+get_attribute_pointer (const VertexBuffer *buffer,
                                      uint32_t vertex_index,
                                      AttributeSemantic semantic)
 {
