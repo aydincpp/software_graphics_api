@@ -60,59 +60,41 @@ int main(void) {
   fb.back_buffer = back_buffer;
 
   Vertex cube_vertices[] = {
-    /* front face red */
-    { -0.5f, -0.5f,  0.5f, 1, 0, 0, 1 },
-    {  0.5f, -0.5f,  0.5f, 1, 0, 0, 1 },
-    {  0.5f,  0.5f,  0.5f, 1, 0, 0, 1 },
+    { -0.5f, -0.5f,  0.5f, 1.0f, 0.3f, 0.3f, 1.0f }, /* 0 front-bottom-left:  warm red */
+    {  0.5f, -0.5f,  0.5f, 1.0f, 0.6f, 0.2f, 1.0f }, /* 1 front-bottom-right: orange */
+    {  0.5f,  0.5f,  0.5f, 1.0f, 0.9f, 0.4f, 1.0f }, /* 2 front-top-right:    light orange */
+    { -0.5f,  0.5f,  0.5f, 0.9f, 1.0f, 0.5f, 1.0f }, /* 3 front-top-left:     yellowish */
 
-    { -0.5f, -0.5f,  0.5f, 1, 0, 0, 1 },
-    {  0.5f,  0.5f,  0.5f, 1, 0, 0, 1 },
-    { -0.5f,  0.5f,  0.5f, 1, 0, 0, 1 },
+    { -0.5f, -0.5f, -0.5f, 0.3f, 1.0f, 0.4f, 1.0f }, /* 4 back-bottom-left:   light green */
+    {  0.5f, -0.5f, -0.5f, 0.2f, 0.8f, 1.0f, 1.0f }, /* 5 back-bottom-right:  cyan */
+    {  0.5f,  0.5f, -0.5f, 0.1f, 0.5f, 1.0f, 1.0f }, /* 6 back-top-right:     blue */
+    { -0.5f,  0.5f, -0.5f, 0.4f, 0.2f, 1.0f, 1.0f }  /* 7 back-top-left:      violet */
+  };
 
-    /* back face green */
-    { -0.5f, -0.5f, -0.5f, 0, 1, 0, 1 },
-    {  0.5f,  0.5f, -0.5f, 0, 1, 0, 1 },
-    {  0.5f, -0.5f, -0.5f, 0, 1, 0, 1 },
+  unsigned int cube_indices[] = {
+    /* front face */
+    0, 1, 2,
+    0, 2, 3,
 
-    { -0.5f, -0.5f, -0.5f, 0, 1, 0, 1 },
-    { -0.5f,  0.5f, -0.5f, 0, 1, 0, 1 },
-    {  0.5f,  0.5f, -0.5f, 0, 1, 0, 1 },
+    /* back face */
+    5, 4, 7,
+    5, 7, 6,
 
-    /* left face blue */
-    { -0.5f, -0.5f, -0.5f, 0, 0, 1, 1 },
-    { -0.5f, -0.5f,  0.5f, 0, 0, 1, 1 },
-    { -0.5f,  0.5f,  0.5f, 0, 0, 1, 1 },
+    /* left face */
+    4, 0, 3,
+    4, 3, 7,
 
-    { -0.5f, -0.5f, -0.5f, 0, 0, 1, 1 },
-    { -0.5f,  0.5f,  0.5f, 0, 0, 1, 1 },
-    { -0.5f,  0.5f, -0.5f, 0, 0, 1, 1 },
+    /* right face */
+    1, 5, 6,
+    1, 6, 2,
 
-    /* right face yellow */
-    { 0.5f, -0.5f, -0.5f, 1, 1, 0, 1 },
-    { 0.5f,  0.5f,  0.5f, 1, 1, 0, 1 },
-    { 0.5f, -0.5f,  0.5f, 1, 1, 0, 1 },
+    /* top face */
+    3, 2, 6,
+    3, 6, 7,
 
-    { 0.5f, -0.5f, -0.5f, 1, 1, 0, 1 },
-    { 0.5f,  0.5f, -0.5f, 1, 1, 0, 1 },
-    { 0.5f,  0.5f,  0.5f, 1, 1, 0, 1 },
-
-    /* top face cyan */
-    { -0.5f,  0.5f,  0.5f, 0, 1, 1, 1 },
-    {  0.5f,  0.5f,  0.5f, 0, 1, 1, 1 },
-    {  0.5f,  0.5f, -0.5f, 0, 1, 1, 1 },
-
-    { -0.5f,  0.5f,  0.5f, 0, 1, 1, 1 },
-    {  0.5f,  0.5f, -0.5f, 0, 1, 1, 1 },
-    { -0.5f,  0.5f, -0.5f, 0, 1, 1, 1 },
-
-    /* bottom face magenta */
-    { -0.5f, -0.5f,  0.5f, 1, 0, 1, 1 },
-    {  0.5f, -0.5f, -0.5f, 1, 0, 1, 1 },
-    {  0.5f, -0.5f,  0.5f, 1, 0, 1, 1 },
-
-    { -0.5f, -0.5f,  0.5f, 1, 0, 1, 1 },
-    { -0.5f, -0.5f, -0.5f, 1, 0, 1, 1 },
-    {  0.5f, -0.5f, -0.5f, 1, 0, 1, 1 },
+    /* bottom face */
+    4, 5, 1,
+    4, 1, 0
   };
 
   /* define attributes */
@@ -121,16 +103,17 @@ int main(void) {
     { ATTR_COLOR, sizeof(float)*3, sizeof(float)*4, 4 }
   };
   VertexLayout layout = vertex_layout_create(attributes, 2, sizeof(Vertex));
-  VertexBuffer vb = vertex_buffer_create(cube_vertices, layout, 36);
+  VertexBuffer vb = vertex_buffer_create  (cube_vertices, layout, 36);
+  IndexBuffer  ib = index_buffer_create   (cube_indices, sizeof(cube_indices) / sizeof(cube_indices[0]));
 
   float angle = 0.0f;
 
   /* camera position */
-  Vec3f_t eye = { 0.0f, 0.0f, 10.0f };
-  Vec3f_t target = { 0.0f, 0.0f, 0.0f };
-  Vec3f_t up = { 0.0f, 1.0f, 0.0f };
+  Vec3f_t eye     = { 0.0f, 0.0f, 20.0f };
+  Vec3f_t target  = { 0.0f, 0.0f, 0.0f };
+  Vec3f_t up      = { 0.0f, 1.0f, 0.0f };
 
-  float camera_speed = 0.1f;
+  float camera_speed = 5.0f;
 
   /* store original positions */
   float *original_positions = malloc(sizeof(float)*3*vb.vertex_count);
@@ -181,8 +164,8 @@ int main(void) {
     Mat4x4f_t mv = mat4x4f_mul(&view, &model);
     Mat4x4f_t mvp = mat4x4f_mul(&proj, &mv);
 
-    /* transform triangle vertices */
-    Vertex transformed_triangle_vertices[vb.vertex_count];
+    /* transform cube vertices */
+    Vertex transformed_cube_vertices[vb.vertex_count];
     for (uint32_t i = 0; i < vb.vertex_count; ++i) {
       Vec4f_t orig = {
         original_positions[i * 3 + 0],
@@ -198,28 +181,28 @@ int main(void) {
         transformed.z /= transformed.w;
       }
 
-      transformed_triangle_vertices[i].x = transformed.x;
-      transformed_triangle_vertices[i].y = transformed.y;
-      transformed_triangle_vertices[i].z = transformed.z;
+      transformed_cube_vertices[i].x = transformed.x;
+      transformed_cube_vertices[i].y = transformed.y;
+      transformed_cube_vertices[i].z = transformed.z;
 
       float *col_ptr = (float *)vertex_buffer_get_attribute_pointer(&vb, i, ATTR_COLOR);
       if (col_ptr) {
-        transformed_triangle_vertices[i].r = col_ptr[0];
-        transformed_triangle_vertices[i].g = col_ptr[1];
-        transformed_triangle_vertices[i].b = col_ptr[2];
-        transformed_triangle_vertices[i].a = col_ptr[3];
+        transformed_cube_vertices[i].r = col_ptr[0];
+        transformed_cube_vertices[i].g = col_ptr[1];
+        transformed_cube_vertices[i].b = col_ptr[2];
+        transformed_cube_vertices[i].a = col_ptr[3];
       } else {
-        transformed_triangle_vertices[i].r = 1.0f;
-        transformed_triangle_vertices[i].g = 1.0f;
-        transformed_triangle_vertices[i].b = 1.0f;
-        transformed_triangle_vertices[i].a = 1.0f;
+        transformed_cube_vertices[i].r = 1.0f;
+        transformed_cube_vertices[i].g = 1.0f;
+        transformed_cube_vertices[i].b = 1.0f;
+        transformed_cube_vertices[i].a = 1.0f;
       }
     }
 
-    vertex_buffer_update(&vb, transformed_triangle_vertices, sizeof(Vertex)*vb.vertex_count);
+    vertex_buffer_update(&vb, transformed_cube_vertices, sizeof(Vertex)*vb.vertex_count);
 
     /* draw cube */
-    draw_vertex_buffer(&fb, &vb, PRIM_TRIANGLES);
+    draw_index_buffer(&fb, &ib, &vb, PRIM_TRIANGLES);
 
     memcpy(fb.fbp, back_buffer, fb_size);
 
