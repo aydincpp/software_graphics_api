@@ -1,11 +1,37 @@
 #include "platform/framebuffer.h"
-#include "graphics/color.h"
-#include "graphics/pixel.h"
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <sys/fcntl.h>
 #include <sys/ioctl.h>
 #include <sys/mman.h>
+
+bool
+fb_init (Framebuffer* fb,
+         const char* path) {
+  if (!fb_open(fb, path)) return false;
+  if (!fb_get_info(fb))   return false;
+  if (!fb_map(fb))        return false;
+
+  fb->size = fb->vinfo.xres * fb->vinfo.yres * (fb->vinfo.bits_per_pixel / 8);
+  fb->back_buffer = malloc(fb->size);
+  if (!fb->back_buffer) return false;
+
+  return true;
+}
+
+void
+fb_clear (Framebuffer* fb)
+{
+  memset(fb->back_buffer, 0, fb->size);
+}
+
+void
+fb_present (Framebuffer* fb)
+{
+  memcpy(fb->fbp, fb->back_buffer, fb->size);
+}
 
 bool
 fb_open (Framebuffer *fb, const char *path)
@@ -46,7 +72,6 @@ fb_get_info (Framebuffer *fb)
       perror ("FBIOGET_FSCREENINFO");
       return false;
     }
-  fb->screensize = fb->finfo.smem_len;
   return true;
 }
 
@@ -64,7 +89,9 @@ fb_put_info (Framebuffer *fb)
 bool
 fb_map (Framebuffer *fb)
 {
-  fb->fbp = mmap (0, fb->screensize, PROT_READ | PROT_WRITE, MAP_SHARED,
+  fb->fbp = mmap (0, fb->finfo.smem_len,
+                  PROT_READ | PROT_WRITE,
+                  MAP_SHARED,
                   fb->fd, 0);
   if (fb->fbp == MAP_FAILED)
     {
@@ -84,20 +111,7 @@ fb_unmap (Framebuffer *fb)
       return false;
     }
 
-  munmap (fb->fbp, fb->screensize);
+  munmap (fb->fbp, fb->finfo.smem_len);
   fb->fbp = NULL;
   return true;
-}
-
-void
-fb_clear_color (Framebuffer *fb, uint8_t r, uint8_t g, uint8_t b)
-{
-  int width = fb->vinfo.xres;
-  int height = fb->vinfo.yres;
-
-  for (int y = 0; y < height; y++) {
-    for (int x = 0; x < width; x++) {
-      set_pixel(fb, (Vec2i_t){x, y}, (Color8_t){r, g, b, 0});
-    }
-  }
 }

@@ -17,10 +17,37 @@ typedef struct
   int                        fd;            /**< File descriptor for framebuffer device */
   struct fb_fix_screeninfo   finfo;         /**< Fixed screen information */
   struct fb_var_screeninfo   vinfo;         /**< Variable screen information */
-  size_t                     screensize;    /**< Total size in bytes of framebuffer memory */
+  size_t                     size;          /**< Byte size of render area */
   uint8_t                   *fbp;           /**< Pointer to mapped framebuffer memory */
   uint8_t                   *back_buffer;   /**< Pointer to backbuffer */
 } Framebuffer;
+
+/**
+ * @brief Initializes the framebuffer.
+ *
+ * @param fb    Pointer to a Framebuffer structure.
+ * @param path  Path to the framebuffer device (e.g., "/dev/fb0").
+ * @return true if initialization is successful, false otherwise.
+ */
+bool
+fb_init (Framebuffer* fb,
+         const char* path);
+
+/**
+ * @brief Clears the framebuffer by resetting it to black.
+ *
+ * @param fb Pointer to a Framebuffer structure.
+ */
+void
+fb_clear (Framebuffer* fb);
+
+/**
+ * @brief Presents the back buffer to the framebuffer device.
+ *
+ * @param fb Pointer to a Framebuffer structure.
+ */
+void
+fb_present (Framebuffer* fb);
 
 /**
  * @brief Opens the framebuffer device at the specified path.
@@ -83,6 +110,9 @@ bool
 fb_unmap (Framebuffer *fb);
 
 void
-fb_clear_color (Framebuffer *fb, uint8_t r, uint8_t g, uint8_t b);
+fb_clear_color (Framebuffer *fb,
+                uint8_t r,
+                uint8_t g,
+                uint8_t b);
 
 #endif /* FB_H */
