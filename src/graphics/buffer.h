@@ -34,10 +34,10 @@ typedef struct
  */
 typedef struct
 {
-  AttributeSemantic semantic;       /**< Semantic meaning of the attribute */
-  uint32_t          offset;         /**< Byte offset from start of vertex */
-  uint32_t          size;           /**< Size in bytes of the attribute */
-  uint32_t          component_count;/**< Number of components */
+  AttributeSemantic semantic;               /**< Semantic meaning of the attribute */
+  uint32_t          offset;                 /**< Byte offset from start of vertex */
+  uint32_t          type_size;              /**< Size in bytes of the attribute data type */
+  uint32_t          component_count;        /**< Number of components */
 } VertexAttribute;
 
 /**
@@ -98,7 +98,7 @@ void vertex_layout_destroy (VertexLayout *layout);
  * @return A VertexBuffer struct owning the allocated data and layout.
  *         If allocation fails, returns a buffer with data == NULL and vertex_count == 0.
  */
-VertexBuffer vertex_buffer_create (void* data,
+VertexBuffer vertex_buffer_create (const void* data,
                                    VertexLayout layout,
                                    uint32_t vertex_count);
 

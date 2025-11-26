@@ -45,7 +45,7 @@ vertex_layout_destroy (VertexLayout *layout)
 }
 
 VertexBuffer
-vertex_buffer_create (void *data,
+vertex_buffer_create (const void *data,
                       VertexLayout layout,
                       uint32_t vertex_count)
 {
