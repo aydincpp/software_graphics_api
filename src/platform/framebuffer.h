@@ -21,6 +21,7 @@ typedef struct
   float                      aspect;        /**< Aspect ratio of the screen */
   uint8_t                   *fbp;           /**< Pointer to mapped framebuffer memory */
   uint8_t                   *back_buffer;   /**< Pointer to backbuffer */
+  float                     *depth_buffer;
 } Framebuffer;
 
 /**
@@ -33,6 +34,9 @@ typedef struct
 bool
 fb_init (Framebuffer* fb,
          const char* path);
+
+void
+fb_shutdown(Framebuffer* fb);
 
 /**
  * @brief Clears the framebuffer by resetting it to black.

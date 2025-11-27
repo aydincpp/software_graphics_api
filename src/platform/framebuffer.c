@@ -15,7 +15,15 @@ fb_init (Framebuffer* fb,
   if (!fb_map(fb))        return false;
 
   fb->size = fb->vinfo.xres * fb->vinfo.yres * (fb->vinfo.bits_per_pixel / 8);
-  fb->back_buffer = malloc(fb->size);
+
+  uint8_t *back_buffer = (uint8_t*)malloc(fb->size);
+  if (!back_buffer) { return false; }
+  fb->back_buffer = back_buffer;
+
+  float *depth_buffer = (float*)malloc(fb->size);
+  if (!depth_buffer) { return false; }
+  fb->depth_buffer = depth_buffer;
+
   fb->aspect = (float)fb->vinfo.xres / fb->vinfo.yres;
   if (!fb->back_buffer) return false;
 
@@ -23,9 +31,29 @@ fb_init (Framebuffer* fb,
 }
 
 void
+fb_shutdown(Framebuffer* fb) {
+  if (!fb) return;
+
+  if (fb->back_buffer) {
+    free(fb->back_buffer);
+  }
+
+  if (fb->depth_buffer) {
+    free(fb->depth_buffer);
+  }
+
+  fb_close(fb);
+}
+
+void
 fb_clear (Framebuffer* fb)
 {
   memset(fb->back_buffer, 0, fb->size);
+
+  size_t n = (float)fb->vinfo.xres * fb->vinfo.yres;
+  for (size_t i = 0; i < n; ++i) {
+    fb->depth_buffer[i] = 1.0f;
+  }
 }
 
 void
