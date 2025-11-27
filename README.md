@@ -1,6 +1,8 @@
 # Software Renderer
 
-This project is a software renderer written from scratch in C99 for Linux (not finished). It has no dependencies and only works with the CPU.
+![demo](./demo.png)
+
+This project is a software renderer written from scratch in C99 for Linux. It has no dependencies and only works with the CPU.
 I started this project because I wanted to learn how the graphics API processes pixels.
 After reading a few blog posts about the graphics pipeline, I still couldn't understand "EXACTLY" what was going on, so I decided to implement a small graphics API from scratch.
 I will document everything I learn, you can read it if you want.
