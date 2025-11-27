@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 /* 16.16 fixed-point format */
-#define FIXED_SHIFT 4
+#define FIXED_SHIFT 8
 #define FIXED_ONE (1 << FIXED_SHIFT)
 #define TO_FIXED(x) ((x) << FIXED_SHIFT)
 #define FIXED_MUL(a, b) (((int64_t)(a) * (b)) >> FIXED_SHIFT)
